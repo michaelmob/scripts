@@ -1,33 +1,21 @@
 #!/usr/bin/env bash
 # vim: ts=2 sw=2 et
 focused_window="$(xdotool getactivewindow getwindowname)"
-title='Bitwarden'
-package='com.bitwarden.desktop'
 
 # if window is focused
-if [ "$focused_window" = "$title" ]; then
+if [ "$focused_window" = 'Joplin' ]; then
   # minimize window
   xdotool getactivewindow windowminimize
 
   # move window to last workspace
   #NUM="$(wmctrl -d | wc -l)"
-  #wmctrl -r "$title" -t "$((NUM-1))"
+  #wmctrl -r Joplin -t "$((NUM-1))"
 
   # move window to first workspace
-  wmctrl -r "$title" -t 0
+  wmctrl -r Joplin -t 0
 
   exit 0
 fi
-
-# try to focus $title
-if wmctrl -FR "$title"; then
-  #wmctrl -Fr "$title" -b add,above
-  exit 0
-fi
-
-# else launch $title
-flatpak run "$package" && exit 0
-
 
 # wmctrl(1)
 # -F Window name arguments (<WIN>) are to be treated as exact window titles that are case sensitive. Without  this  options  window
@@ -40,3 +28,11 @@ flatpak run "$package" && exit 0
 #    prop2)  are  modal,  sticky,  maximized_vert,  maximized_horz, shaded, skip_taskbar, skip_pager, hidden, fullscreen, above and
 #    below.  Two properties are supported to allow operations like maximizing a window to full screen mode. Note that  this  action
 #    is made up of exactly two shell command line arguments.
+# try to focus joplin
+if wmctrl -FR Joplin; then
+  #wmctrl -Fr Joplin -b add,above
+  exit 0
+fi
+
+# else launch joplin
+flatpak run net.cozic.joplin_desktop && exit 0
