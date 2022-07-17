@@ -6,9 +6,11 @@ URL="https://github.com/zellij-org/zellij/releases/download/v0.30.0/$FILE"
 
 cd /tmp
 rm -r zellij
-wget -O "$FILE" "$URL" && tar -xvf "$FILE"
 
+wget -O "$FILE" "$URL" && tar -xvf "$FILE"
 if [[ -f zellij ]]; then
 	chmod +x zellij
+	mkdir -p ~/.local/bin
 	cp ./zellij ~/.local/bin/zellij
+	rm -r zellij*
 fi
